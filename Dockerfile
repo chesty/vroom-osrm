@@ -95,12 +95,13 @@ RUN mkdir -p /src && \
     cd / && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
 
+ENV VROOM_EXPRESS_BRANCH v0.1.0
 RUN apt-get update && \
     apt-get install -y \
         git-core \
         npm \
         nodejs-legacy && \
-    git clone --depth 1 https://github.com/VROOM-Project/vroom-express.git && \
+    git clone --depth 10 --branch $VROOM_EXPRESS_BRANCH https://github.com/VROOM-Project/vroom-express.git && \
     cd vroom-express && \
     ln -s /dev/stdout access.log && \
     npm install && \
