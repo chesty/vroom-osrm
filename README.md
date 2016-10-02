@@ -47,7 +47,7 @@ osrm.sh
 ```
 docker run --rm -ti --hostname vroom --name vroom \
     --volume /home/docker/osm:/osm \
-    -p 5001:5001 \
+    -p 3000:3000 \
     --env OSRM_HOST=osrm \
     crashbuggy/osrm vroom-express.sh
 ```

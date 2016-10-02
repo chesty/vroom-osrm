@@ -144,5 +144,4 @@ COPY vroom-express.sh /usr/local/bin
 VOLUME /osm
 
 EXPOSE 5000
-EXPOSE 5001
 EXPOSE 3000
