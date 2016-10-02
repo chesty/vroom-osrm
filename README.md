@@ -33,9 +33,9 @@ osrm and vroom in separate containers.
 docker run --rm -ti --hostname osrm --name osrm \
     -v /home/docker/osm:/osm \
     -p 5000:5000 \
-    -e CPUS=4
+    -e CPUS=4 \
     -e DATA_PATH=/osm \
-    -e OSM_PBF_URL=http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf
+    -e OSM_PBF_URL=http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf \
     crashbuggy/osrm osrm.sh
 ```
 
@@ -45,9 +45,9 @@ for running vroom, OSRM_HOST is the --hostname of the container running
 osrm.sh
 
 ```
-docker run --rm -ti --hostname vroom --name vroom 
+docker run --rm -ti --hostname vroom --name vroom \
     --volume /home/docker/osm:/osm \
     -p 5001:5001 \
-    --env OSRM_HOST=osrm
+    --env OSRM_HOST=osrm \
     crashbuggy/osrm vroom-express.sh
 ```
