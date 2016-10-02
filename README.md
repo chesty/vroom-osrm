@@ -18,17 +18,18 @@ Here's the list of variables that affect the container starting with
 some default settings.
 
 For the container running osrm
-CPUS=4
-DATA_PATH="/osm"
-OSM_PBF_URL="http://mirror2.shellbot.com/osm/planet-latest.osm.pbf"
-PROFILE="car"
+* CPUS=4
+* DATA_PATH="/osm"
+* OSM_PBF_URL="http://mirror2.shellbot.com/osm/planet-latest.osm.pbf"
+* PROFILE="car"
 
 For the container running vroom
-OSRM_HOST="osrm"
+* OSRM_HOST="osrm"
 
 I added the supervisor package if you prefer to use it, but I run
 osrm and vroom in separate containers.
 
+```
 docker run --rm -ti --hostname osrm --name osrm \
     -v /home/docker/osm:/osm \
     -p 5000:5000 \
@@ -36,14 +37,17 @@ docker run --rm -ti --hostname osrm --name osrm \
     -e DATA_PATH=/osm \
     -e OSM_PBF_URL=http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf
     crashbuggy/osrm osrm.sh
+```
 
 the directory after : in -v /home/docker/osm:/osm (ie /osm) == DATA_PATH
 
 for running vroom, OSRM_HOST is the --hostname of the container running 
 osrm.sh
 
+```
 docker run --rm -ti --hostname vroom --name vroom 
     --volume /home/docker/osm:/osm \
     -p 5001:5001 \
     --env OSRM_HOST=osrm
     crashbuggy/osrm vroom-express.sh
+```
