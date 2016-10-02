@@ -4,7 +4,7 @@ After=docker-postgis.service
 Requires=docker-postgis.service
 
 [Service]
-ExecStart=/usr/bin/systemd-docker run --rm -p 5000:5000 --hostname osrm --name osrm --env CPUS=8 --env OSM_PBF_URL=http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf --volume /home/docker/osm:/osm crashbuggy/vroom-osrm osrm.sh
+ExecStart=/usr/bin/systemd-docker run --rm -p 5000:5000 --hostname osrm --name osrm --env CPUS=8 --env OSM_PBF_URL=http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf --volume /home/docker/osm:/osm crashbuggy/osrm osrm.sh
 Restart=always
 RestartSec=10s
 Type=notify
