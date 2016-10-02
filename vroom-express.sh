@@ -1,12 +1,7 @@
 #!/bin/bash
 
-: ${OSRM_HOST:=osrm}
-
-export OSRM_HOST
-
 sed -ri -e 's/(var MAX_JOB_NUMBER =).*;/\1 500;/' \
-        -e "s/(var OSRM_ADDRESS =).*/\1 \"${OSRM_HOST}\";/" /vroom-express/src/index.js
-
+        -e "s/(var USE_LIBOSRM =).*/\1 true;/" /vroom-express/src/index.js
 
 # https://github.com/docker/docker/issues/6880
 mkfifo -m 600 /vroom-express/logpipe
