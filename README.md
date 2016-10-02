@@ -1,4 +1,4 @@
-# crashbuggy-osrm
+# crashbuggy/vroom-osrm
 docker image for vroom and osrm
 
 https://github.com/VROOM-Project/vroom
