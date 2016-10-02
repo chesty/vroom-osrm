@@ -36,7 +36,7 @@ docker run --rm -ti --hostname osrm --name osrm \
     -e CPUS=4 \
     -e DATA_PATH=/osm \
     -e OSM_PBF_URL=http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf \
-    crashbuggy/osrm osrm.sh
+    crashbuggy/vroom-osrm osrm.sh
 ```
 
 the directory after : in -v /home/docker/osm:/osm (ie /osm) == DATA_PATH
@@ -49,5 +49,5 @@ docker run --rm -ti --hostname vroom --name vroom \
     --volume /home/docker/osm:/osm \
     -p 3000:3000 \
     --env OSRM_HOST=osrm \
-    crashbuggy/osrm vroom-express.sh
+    crashbuggy/vroom-osrm vroom-express.sh
 ```

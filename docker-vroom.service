@@ -4,7 +4,7 @@ After=docker-osrm.service
 Requires=docker-osrm.service
 
 [Service]
-ExecStart=/usr/bin/systemd-docker run --rm -p 3000:3000 --hostname vroom --name vroom --env OSRM_HOST=osrm --volume /home/docker/osm:/osm crashbuggy/osrm vroom-express.sh
+ExecStart=/usr/bin/systemd-docker run --rm -p 3000:3000 --hostname vroom --name vroom --env OSRM_HOST=osrm --volume /home/docker/osm:/osm crashbuggy/vroom-osrm vroom-express.sh
 Restart=always
 RestartSec=10s
 Type=notify
