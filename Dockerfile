@@ -130,9 +130,10 @@ RUN set -x \
 RUN apt-get update && \
 	apt-get install -y \
 		curl \
-		wget \
+		iproute  \
 		iputils-ping \
-		iproute && \
+		supervisor \
+		wget && \
      apt-get clean && \
      cd / && \
      rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
