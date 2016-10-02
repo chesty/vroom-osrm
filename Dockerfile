@@ -38,7 +38,7 @@ RUN apt-get update && \
         protobuf-compiler && \
     mkdir -p /src && \
     cd /src && \
-    git clone --depth 1 https://github.com/Project-OSRM/osrm-backend && \
+    git clone --depth 10 --branch $OSRM_BACKEND_VERSION https://github.com/Project-OSRM/osrm-backend && \
     cd osrm-backend && \
     mkdir -p build && \
     cd build && \
@@ -50,8 +50,8 @@ RUN apt-get update && \
     apt-get purge -y \
         '*-dev' \
         build-essential \
-        git-core \
         cmake \
+        git-core \
         krb5-locales \
         make \
         wget && \
@@ -68,18 +68,18 @@ RUN mkdir -p /src && \
         build-essential \
         g++ \
         git-core \
-        libboost-iostreams1.58.0 \
         libboost-iostreams1.58-dev \
-        libboost-log1.58.0 \
-        libtbb-dev \
-        libtbb2 \
+        libboost-iostreams1.58.0 \
         libboost-log-dev \
+        libboost-log1.58.0 \
         libboost-regex-dev \
         libboost-system-dev \
         libboost-thread-dev \
-        pkg-config \
-        make && \
-    git clone --depth 1 --branch $VROOM_BRANCH https://github.com/VROOM-Project/vroom.git && \
+        libtbb-dev \
+        libtbb2 \
+        make \
+        pkg-config && \
+    git clone --depth 10 --branch $VROOM_BRANCH https://github.com/VROOM-Project/vroom.git && \
     cd vroom && \
     mkdir -p /src/vroom/bin && \
     cd /src/vroom/src && \
