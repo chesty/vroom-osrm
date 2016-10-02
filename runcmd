@@ -1,0 +1,2 @@
+docker run --rm -ti --hostname osrm --name osrm -v /home/docker/osm:/osm -p 5000 crashbuggy/osrm osrm.sh
+docker run --rm -ti -hostname vroom --name vroom -v /home/docker/osm:/osm -p 5001 crashbuggy/osrm vroom-express.sh
