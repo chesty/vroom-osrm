@@ -7,12 +7,12 @@ https://github.com/Project-OSRM/osrm-backend
 I looked at a lot of existing docker projects and copied the bits that
 suited me. 
 
-the example systemd service unit configurations are pretty close to
+The example systemd service unit configurations are pretty close to
 how I run them. They require the systemd-docker package.
-you can use both docker-osrm.service and docker-vroom.service to run
-them in separate containers, alternatively run docker-vroom-osrm.service 
+You can use both docker-osrm.service and docker-vroom.service to run
+them in separate containers. Alternatively run docker-vroom-osrm.service 
 by itself to run both osrm-routed and vroom-express in the one container 
-using supervisor with optional shared memory support (enabled in the 
+using supervisor, with optional shared memory support (enabled in the 
 example)
 * https://github.com/chesty/vroom-osrm/blob/master/docker-osrm.service
 * https://github.com/chesty/vroom-osrm/blob/master/docker-vroom.service
@@ -23,6 +23,7 @@ I do and create an empty directory on your host file system
 `/home/docker/osm` to mount inside the containers as a volume mount `/osm`
 
 Then start the containers with the relevant environment variables set.
+It will download the osm data, complile it
 Here's the list of variables that affects the container with
 some example settings.
 
