@@ -10,7 +10,7 @@ suited me.
 the example systemd service unit configurations are pretty close to
 how I run them. They require the systemd-docker package.
 you can use both docker-osrm.service and docker-vroom.service to run
-them is separate containers, alternatively run docker-vroom-osrm.service 
+them in separate containers, alternatively run docker-vroom-osrm.service 
 by itself to run both osrm-routed and vroom-express in the one container 
 using supervisor with optional shared memory support (enabled in the 
 example)
@@ -23,8 +23,8 @@ I do and create an empty directory on your host file system
 `/home/docker/osm` to mount inside the containers as a volume mount `/osm`
 
 Then start the containers with the relevant environment variables set.
-Here's the list of variables that affect the container starting with
-some default settings.
+Here's the list of variables that affects the container with
+some example settings.
 
 For the container running osrm
 * CPUS="4"
@@ -36,7 +36,7 @@ For the container running osrm
 For the container running vroom
 * OSRM_HOST="osrm"
 
-For the Two in One container
+For the vroom and osrm in the one container using supervisor
 * CPUS="4"
 * DATA_PATH="/osm"
 * OSM_PBF_URL="http://mirror2.shellbot.com/osm/planet-latest.osm.pbf"
@@ -65,6 +65,8 @@ docker run --rm -ti --hostname osrm --name osrm
 
 the directory after : in -v /home/docker/osm:/osm (ie /osm) == DATA_PATH
 
+To run just osrm
+
 ```
 docker run --rm -ti --hostname osrm --name osrm \
     -v /home/docker/osm:/osm \
@@ -74,7 +76,6 @@ docker run --rm -ti --hostname osrm --name osrm \
     -e OSM_PBF_URL=http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf \
     crashbuggy/vroom-osrm osrm.sh
 ```
-
 
 for running vroom, OSRM_HOST is the --hostname of the container running 
 osrm.sh
