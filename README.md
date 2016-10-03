@@ -20,8 +20,7 @@ example)
 
 For persistent data, use a data container or a named volume, or do what 
 I do and create an empty directory on your host file system 
-```/home/docker/osm``` to mount inside the containers as a volume mount 
-```/osm```
+`/home/docker/osm` to mount inside the containers as a volume mount `/osm`
 
 Then start the containers with the relevant environment variables set.
 Here's the list of variables that affect the container starting with
