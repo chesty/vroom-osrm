@@ -9,8 +9,14 @@ suited me.
 
 the example systemd service unit configurations are pretty close to
 how I run them. They require the systemd-docker package.
+you can use both docker-osrm.service and docker-vroom.service to run
+them is separate containers, alternatively run docker-vroom-osrm.service 
+by itself to run both osrm-routed and vroom-express in the one container 
+using supervisor with optional shared memory support (enabled in the 
+example)
 * https://github.com/chesty/vroom-osrm/blob/master/docker-osrm.service
 * https://github.com/chesty/vroom-osrm/blob/master/docker-vroom.service
+* https://github.com/chesty/vroom-osrm/blob/master/docker-vroom-osrm.service
 
 For persistent data, use a data container or a named volume, or do what 
 I do and create an empty directory on your host file system 
@@ -26,14 +32,39 @@ For the container running osrm
 * DATA_PATH="/osm"
 * OSM_PBF_URL="http://mirror2.shellbot.com/osm/planet-latest.osm.pbf"
 * PROFILE="car"
+* REFRESH="0"
 
 For the container running vroom
 * OSRM_HOST="osrm"
 
-I added the supervisor package if you prefer to use it, but I run
-osrm and vroom in separate containers atm. If you want to use supervisor
-you can volume mount the supervisor configuration and run supervisor
-instead of osrm.sh.
+For the Two in One container
+* CPUS="4"
+* DATA_PATH="/osm"
+* OSM_PBF_URL="http://mirror2.shellbot.com/osm/planet-latest.osm.pbf"
+* PROFILE="car"
+* SHAREDMEMORY="1"
+* REFRESH="0"
+
+Setting REFRESH="1" will cause the osm data to be re-downloaded and
+osrm data to be regenerated.
+
+Here's some examples, the first is to run both osrm-routed and vroom in
+the one container using shared memory
+
+```
+docker run --rm -ti --hostname osrm --name osrm 
+    --network-alias vroom \
+    -v /home/docker/osm:/osm \
+    -p 5000:5000 \
+    -p 3000:3000 \
+    -e CPUS=4 \
+    -e DATA_PATH=/osm \
+    -e OSM_PBF_URL=http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf \
+    -e SHAREDMEMORY=1 \
+    crashbuggy/vroom-osrm
+```
+
+the directory after : in -v /home/docker/osm:/osm (ie /osm) == DATA_PATH
 
 ```
 docker run --rm -ti --hostname osrm --name osrm \
@@ -42,10 +73,9 @@ docker run --rm -ti --hostname osrm --name osrm \
     -e CPUS=4 \
     -e DATA_PATH=/osm \
     -e OSM_PBF_URL=http://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf \
-    crashbuggy/osrm osrm.sh
+    crashbuggy/vroom-osrm osrm.sh
 ```
 
-the directory after : in -v /home/docker/osm:/osm (ie /osm) == DATA_PATH
 
 for running vroom, OSRM_HOST is the --hostname of the container running 
 osrm.sh
@@ -55,5 +85,6 @@ docker run --rm -ti --hostname vroom --name vroom \
     --volume /home/docker/osm:/osm \
     -p 3000:3000 \
     --env OSRM_HOST=osrm \
-    crashbuggy/osrm vroom-express.sh
+    crashbuggy/vroom-osrm vroom-express.sh
 ```
+
