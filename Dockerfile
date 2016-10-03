@@ -141,8 +141,11 @@ RUN apt-get update && \
 
 COPY osrm.sh /usr/local/bin
 COPY vroom-express.sh /usr/local/bin
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 VOLUME /osm
 
 EXPOSE 5000
 EXPOSE 3000
+
+CMD ["/usr/bin/supervisord"]
