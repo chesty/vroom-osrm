@@ -47,11 +47,11 @@ For the vroom and osrm in the one container using supervisor
 Setting REFRESH="1" will cause the osm data to be re-downloaded and
 osrm data to be regenerated.
 
-Here's some examples, the first is to run both osrm-routed and vroom in
-the one container using shared memory
+Here's some examples, the first is to run both osrm-routed and 
+vroom-express in the one container using shared memory
 
 ```
-docker run --rm -ti --hostname osrm --name osrm 
+docker run --rm -ti --hostname osrm --name osrm \
     --network-alias vroom \
     -v /home/docker/osm:/osm \
     -p 5000:5000 \
@@ -77,8 +77,8 @@ docker run --rm -ti --hostname osrm --name osrm \
     crashbuggy/vroom-osrm osrm.sh
 ```
 
-for running vroom, OSRM_HOST is the --hostname of the container running 
-osrm.sh
+for running vroom-express, OSRM_HOST is the --hostname of the container 
+running osrm.sh
 
 ```
 docker run --rm -ti --hostname vroom --name vroom \
