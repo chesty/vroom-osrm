@@ -1,22 +1,5 @@
 #!/bin/bash
 
-while [ ! -f /tmp/osrm-started ]; do
-	sleep 1
-done
-
-: ${REFRESH:=0}
-: ${SHAREDMEMORY:=0}
-
-while (($#)); do
-	if [ "$1" == "-s" ]; then
-		SHAREDMEMORY=1
-
-	elif [ "$1" == "-r" ]; then
-		REFRESH=1
-	fi
-	shift
-done
-
 sed -ri -e 's/(var MAX_JOB_NUMBER =).*;/\1 500;/' /vroom-express/src/index.js
 
 # https://github.com/docker/docker/issues/6880

@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-ENV OSRM_BACKEND_VERSION v5.4.0-rc.7
+ENV OSRM_BACKEND_VERSION v5.4.0
 RUN apt-get update && \
 	apt-get install -y \
 		build-essential \
@@ -60,7 +60,7 @@ RUN apt-get update && \
 	cd / && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
 
-ENV VROOM_BRANCH fix-libosrm-compiling
+ENV VROOM_BRANCH develop
 RUN mkdir -p /src && \
 	cd /src && \
 	apt-get update && \
@@ -101,10 +101,33 @@ RUN apt-get update && \
 		git-core \
 		npm \
 		nodejs-legacy && \
+	cd / && \
 	git clone --depth 10 --branch $VROOM_EXPRESS_BRANCH https://github.com/VROOM-Project/vroom-express.git && \
 	cd vroom-express && \
 	ln -s /dev/stdout access.log && \
 	npm install && \
+	apt-get purge -y \
+		'*-dev' \
+		build-essential \
+		git-core \
+		make  && \
+	apt-get autoremove --purge -y && \
+	apt-get clean && \
+	cd / && \
+	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
+
+ENV VROOM_FRONTEND_BRANCH v0.1.0
+RUN apt-get update && \
+	apt-get install -y \
+		git-core \
+		npm \
+		nodejs-legacy && \
+	cd / && \
+	git clone --depth 10 --branch $VROOM_FRONTEND_BRANCH https://github.com/VROOM-Project/vroom-frontend.git && \
+	cd vroom-frontend && \
+	npm install && \
+	cd /vroom-frontend/src && \
+	make && \
 	apt-get purge -y \
 		'*-dev' \
 		build-essential \
@@ -133,6 +156,7 @@ RUN apt-get update && \
 		curl \
 		iproute  \
 		iputils-ping \
+		nginx \
 		supervisor \
 		wget && \
 	apt-get clean && \
@@ -141,6 +165,7 @@ RUN apt-get update && \
 
 COPY osrm.sh /usr/local/bin
 COPY vroom-express.sh /usr/local/bin
+COPY start.sh /usr/local/bin
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 VOLUME /osm
@@ -148,4 +173,4 @@ VOLUME /osm
 EXPOSE 5000
 EXPOSE 3000
 
-CMD ["/usr/bin/supervisord"]
+ENTRYPOINT ["/usr/local/bin/start.sh"]

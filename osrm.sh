@@ -1,18 +1,17 @@
 #!/bin/bash
 
-rm -f /tmp/osrm-started
-
-: ${CPUS:=1}
-: ${OSM_PBF_URL:=http://mirror2.shellbot.com/osm/planet-latest.osm.pbf}
-: ${DATA_PATH:=/osm}
-: ${PROFILE:=car}
-: ${REFRESH:=0}
-: ${SHAREDMEMORY:=0}
-
-OSM_PBF=`basename $OSM_PBF_URL`
-OSM_PBF="${DATA_PATH}/${OSM_PBF}"
-
 cd $DATA_PATH
+
+if [ ! -d "${DATA_PATH}/vroom-osrm-pre.d" ]; then
+	rm -f "${DATA_PATH}/vroom-osrm-pre.d"
+	mkdir "${DATA_PATH}/vroom-osrm-pre.d"
+fi
+
+if [ ! -d "${DATA_PATH}/vroom-osrm-post.d" ]; then
+	rm -f "${DATA_PATH}/vroom-osrm-post.d"
+	mkdir "${DATA_PATH}/vroom-osrm-post.d"
+fi
+
 
 if [ ! -f "$OSM_PBF" -o "$REFRESH" != 0 ]; then
     curl -z "$OSM_PBF" -L \
@@ -47,9 +46,7 @@ fi
 cd /
 if [ "$SHAREDMEMORY" != 0 ]; then
 	gosu www-data osrm-datastore "${DATA_PATH}/osrm/processed/${PROFILE}/${OSM_BASENAME}.osrm"
-	touch /tmp/osrm-started
 	exec gosu www-data osrm-routed --shared-memory on -t$CPUS -i0.0.0.0 -p5000
 else
-	touch /tmp/osrm-started
 	exec gosu www-data osrm-routed "${DATA_PATH}/osrm/processed/${PROFILE}/${OSM_BASENAME}.osrm" -t$CPUS -i0.0.0.0 -p5000
 fi
