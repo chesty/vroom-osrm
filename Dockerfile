@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-ENV OSRM_BACKEND_VERSION v5.4.0
+ENV OSRM_BACKEND_VERSION v5.4.1
 RUN apt-get update && \
 	apt-get install -y \
 		build-essential \
@@ -47,7 +47,7 @@ RUN apt-get update && \
 	cmake --build . --target install && \
 	mkdir -p /usr/local/share/osrm && \
 	cp -a /src/osrm-backend/profiles /usr/local/share/osrm && \
-	apt-get purge -y \
+	apt-get purge -qq \
 		'*-dev' \
 		build-essential \
 		cmake \
@@ -85,7 +85,7 @@ RUN mkdir -p /src && \
 	cd /src/vroom/src && \
 	make && \
 	cp /src/vroom/bin/vroom /usr/local/bin && \
-	apt-get purge -y \
+	apt-get purge -qq \
 		'*-dev' \
 		build-essential \
 		git-core \
@@ -106,7 +106,7 @@ RUN apt-get update && \
 	cd vroom-express && \
 	ln -s /dev/stdout access.log && \
 	npm install && \
-	apt-get purge -y \
+	apt-get purge -qq \
 		'*-dev' \
 		build-essential \
 		git-core \
@@ -128,7 +128,7 @@ RUN apt-get update && \
 	npm install && \
 	cd /vroom-frontend/src && \
 	make && \
-	apt-get purge -y \
+	apt-get purge -qq \
 		'*-dev' \
 		build-essential \
 		git-core \
