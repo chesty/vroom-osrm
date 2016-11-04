@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-ENV OSRM_BACKEND_VERSION v5.4.1
+ENV OSRM_BACKEND_VERSION v5.4.2
 RUN apt-get update && \
 	apt-get install -y \
 		build-essential \
@@ -139,7 +139,7 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
 
 # copied from postgres dockerfile
-ENV GOSU_VERSION 1.7
+ENV GOSU_VERSION 1.10
 RUN set -x \
 	&& apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
 	&& wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
