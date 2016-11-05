@@ -13,6 +13,7 @@ if [ "$SHAREDMEMORY" != 0 ]; then
 	sed -ri -e "s/(var USE_LIBOSRM =).*/\1 true;/" /vroom-express/src/index.js
 	exec gosu www-data node /vroom-express/src/index.js
 else
-	sed -ri -e "s/(var USE_LIBOSRM =).*/\1 false;/" /vroom-express/src/index.js
+	sed -ri -e "s/(var USE_LIBOSRM =).*/\1 false;/"  \
+	        -e "s/(var OSRM_ADDRESS =).*/\1 \"$OSRM_HOST\";/" /vroom-express/src/index.js
 	exec gosu www-data node /vroom-express/src/index.js
 fi
