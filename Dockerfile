@@ -165,6 +165,7 @@ RUN apt-get update && \
 
 COPY osrm.sh /usr/local/bin
 COPY vroom-express.sh /usr/local/bin
+COPY nginx.sh /usr/local/bin
 COPY start.sh /usr/local/bin
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
