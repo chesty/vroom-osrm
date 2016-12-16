@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-ENV OSRM_BACKEND_VERSION v5.4.2
+ENV OSRM_BACKEND_VERSION v5.5.0
 RUN apt-get update && \
 	apt-get install -y \
 		build-essential \
@@ -60,7 +60,7 @@ RUN apt-get update && \
 	cd / && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
 
-ENV VROOM_BRANCH develop
+ENV VROOM_BRANCH v1.0.0
 RUN mkdir -p /src && \
 	cd /src && \
 	apt-get update && \
@@ -95,7 +95,7 @@ RUN mkdir -p /src && \
 	cd / && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
 
-ENV VROOM_EXPRESS_BRANCH v0.1.0
+ENV VROOM_EXPRESS_BRANCH master
 RUN apt-get update && \
 	apt-get install -y \
 		git-core \
@@ -116,7 +116,7 @@ RUN apt-get update && \
 	cd / && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
 
-ENV VROOM_FRONTEND_BRANCH v0.1.0
+ENV VROOM_FRONTEND_BRANCH master
 RUN apt-get update && \
 	apt-get install -y \
 		git-core \
