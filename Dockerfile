@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-ENV OSRM_BACKEND_VERSION v5.5.0
+ENV OSRM_BACKEND_VERSION v5.5.1
 RUN apt-get update && \
 	apt-get install -y \
 		build-essential \
