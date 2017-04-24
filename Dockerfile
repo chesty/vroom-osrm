@@ -1,8 +1,8 @@
 FROM ubuntu:xenial
 
-ENV OSRM_BACKEND_VERSION v5.5.1
+ENV OSRM_BACKEND_VERSION v5.7.0
 RUN apt-get update && \
-	apt-get install -y \
+	apt-get install -qq \
 		build-essential \
 		cmake \
 		git-core \
@@ -16,11 +16,10 @@ RUN apt-get update && \
 		libbz2-dev \
 		libexpat1 \
 		libgomp1 \
-		liblua5.1-dev \
+		liblua5.2-dev \
 		liblua5.2-0 \
 		libluabind-dev \
 		libluabind0.9.1v5 \
-		libluajit-5.1-dev \
 		libosmpbf-dev \
 		libpng16-dev \
 		libprotobuf-dev \
@@ -32,7 +31,7 @@ RUN apt-get update && \
 		libtbb2 \
 		libxml2-dev \
 		libzip-dev \
-		lua5.1 \
+		lua5.2 \
 		luajit \
 		pkg-config \
 		protobuf-compiler && \
@@ -55,16 +54,16 @@ RUN apt-get update && \
 		krb5-locales \
 		make \
 		wget && \
-	apt-get autoremove --purge -y && \
+	apt-get autoremove --purge -qq && \
 	apt-get clean && \
 	cd / && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
 
-ENV VROOM_BRANCH v1.0.0
+ENV VROOM_BRANCH v1.1.0
 RUN mkdir -p /src && \
 	cd /src && \
 	apt-get update && \
-	apt-get install -y \
+	apt-get install -qq \
 		build-essential \
 		g++ \
 		git-core \
@@ -80,7 +79,6 @@ RUN mkdir -p /src && \
 		make \
 		pkg-config && \
 	git clone --depth 10 --branch $VROOM_BRANCH https://github.com/VROOM-Project/vroom.git && \
-	cd vroom && \
 	mkdir -p /src/vroom/bin && \
 	cd /src/vroom/src && \
 	make && \
@@ -90,14 +88,15 @@ RUN mkdir -p /src && \
 		build-essential \
 		git-core \
 		make && \
-	apt-get autoremove --purge -y && \
+	apt-get autoremove --purge -qq && \
 	apt-get clean && \
 	cd / && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
 
 ENV VROOM_EXPRESS_BRANCH master
 RUN apt-get update && \
-	apt-get install -y \
+	apt-get install -qq \
+		build-essential \
 		git-core \
 		npm \
 		nodejs-legacy && \
@@ -107,18 +106,18 @@ RUN apt-get update && \
 	ln -s /dev/stdout access.log && \
 	npm install && \
 	apt-get purge -qq \
-		'*-dev' \
 		build-essential \
 		git-core \
 		make  && \
-	apt-get autoremove --purge -y && \
+	apt-get autoremove --purge -qq && \
 	apt-get clean && \
 	cd / && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
 
 ENV VROOM_FRONTEND_BRANCH master
 RUN apt-get update && \
-	apt-get install -y \
+	apt-get install -qq \
+		build-essential \
 		git-core \
 		npm \
 		nodejs-legacy && \
@@ -129,11 +128,10 @@ RUN apt-get update && \
 	cd /vroom-frontend/src && \
 	make && \
 	apt-get purge -qq \
-		'*-dev' \
 		build-essential \
 		git-core \
 		make  && \
-	apt-get autoremove --purge -y && \
+	apt-get autoremove --purge -qq && \
 	apt-get clean && \
 	cd / && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
@@ -141,7 +139,7 @@ RUN apt-get update && \
 # copied from postgres dockerfile
 ENV GOSU_VERSION 1.10
 RUN set -x \
-	&& apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
+	&& apt-get update && apt-get install -qq --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
 	&& wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
 	&& wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
 	&& export GNUPGHOME="$(mktemp -d)" \
@@ -152,7 +150,7 @@ RUN set -x \
 	&& gosu nobody true
 
 RUN apt-get update && \
-	apt-get install -y \
+	apt-get install -qq \
 		curl \
 		iproute  \
 		iputils-ping \
