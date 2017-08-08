@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-ENV OSRM_BACKEND_VERSION v5.7.0
+ENV OSRM_BACKEND_VERSION v5.10.0
 RUN apt-get update && \
 	apt-get install -qq \
 		build-essential \
@@ -59,7 +59,7 @@ RUN apt-get update && \
 	cd / && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /src
 
-ENV VROOM_BRANCH v1.1.0
+ENV VROOM_BRANCH master
 RUN mkdir -p /src && \
 	cd /src && \
 	apt-get update && \
