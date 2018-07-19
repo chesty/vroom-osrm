@@ -1,6 +1,18 @@
 # crashbuggy/vroom-osrm
 docker image for vroom and osrm
 
+I'm not updating this anymore, check out 
+- https://github.com/chesty/renderd-docker
+- https://github.com/chesty/nominatim-docker
+- https://github.com/chesty/vroom-docker
+
+and
+
+- https://github.com/chesty/maps-docker-compose
+
+which ties them all together in one environment.
+
+
 https://github.com/VROOM-Project/vroom
 https://github.com/Project-OSRM/osrm-backend
 
