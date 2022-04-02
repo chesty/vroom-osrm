@@ -79,6 +79,10 @@ RUN mkdir -p /src && \
 		make \
 		pkg-config && \
 	git clone --depth 10 --branch $VROOM_BRANCH https://github.com/VROOM-Project/vroom.git && \
+	cd vroom && \
+	git submodule init && \
+	git submodule update && \
+	cd .. && \
 	mkdir -p /src/vroom/bin && \
 	cd /src/vroom/src && \
 	make && \
